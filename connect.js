@@ -1,6 +1,6 @@
 let mongoose= require("mongoose")
 
-let con_string= process.env.MONGO_URL || "mongodb+srv://tanishamittal3867_db_user:pRYME4WZ5dofuTnl@user-feedbackcluster0.ssc24l7.mongodb.net/feedbackDB";
+let con_string= process.env.MONGO_URL ;
 
 let connectDB= async()=>{
     try{
@@ -12,4 +12,5 @@ let connectDB= async()=>{
         console.log(err)
     }
 }
+
 module.exports= connectDB
