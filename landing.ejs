@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <title>Healthora</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <%- include("partials/header") %>
+
+  <!-- Hero -->
+  <div class="hero" style="background-image: url('/images/landing page image.png');">
+    <h1>Discover Healthier Choices, Every Day</h1>
+  </div>
+
+  <!-- Section -->
+  <h2 class="section-title" id="shop-by-need">Shop By Need</h2>
+   
+  <div class="products">
+    <div class="product-card">
+      <a href="/allProducts#gluten-free">
+        <img src="/images/gluten free.png" alt="Gluten Free">
+        <h3>Gluten Free</h3>
+      </a>
+    </div>
+
+    <div class="product-card">
+      <a href="/allProducts#lactose-free">
+        <img src="/images/lactose free.png" alt="Lactose Free">
+        <h3>Lactose Free</h3>
+      </a>
+    </div>
+
+    <div class="product-card">
+      <a href="/allProducts#sugar-free">
+        <img src="/images/sugar free.png" alt="Sugar Free">
+        <h3>Sugar Free</h3>
+      </a>
+    </div>
+
+    <div class="product-card">
+      <a href="/allProducts#soy-free">
+        <img src="/images/soy free.png" alt="Soy Free">
+        <h3>Soy Free</h3>
+      </a>
+    </div>
+
+    <div class="product-card">
+      <a href="/allProducts#nut-free">
+        <img src="/images/nut free.png" alt="Nut Free">
+        <h3>Nut Free</h3>
+      </a>
+    </div>
+  </div>
+
+  <!-- All Free’s Section -->
+  <section class="frees-section">
+    <p class="tagline"><em>Shop gluten-free, vegan, lactose-free & more all in one place.</em></p>
+
+    <h2 class="frees-heading">All Free’s you would love !</h2>
+
+    <div class="frees-icons">
+      <div class="icon-box">
+        <img src="/images/no artificail.png" alt="No Artificial Flavors">
+      </div>
+      <div class="icon-box">
+        <img src="/images/additive free.png" alt="Additives Free">
+      </div>
+      <div class="icon-box">
+        <img src="/images/sugar free logo.png" alt="Sugar Free">
+      </div>
+      <div class="icon-box">
+        <img src="/images/transfat free.png" alt="Trans Fat Free">
+      </div>
+      <div class="icon-box">
+        <img src="/images/gmo free.png" alt="GMO Free">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <%- include("partials/footer") %>
+
+  <script src="/cartAPI.js"></script>
+  <script src="/script.js"></script>
+
+</body>
+</html>

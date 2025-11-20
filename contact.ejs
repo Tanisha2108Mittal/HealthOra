@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <title>Contact - Healthora</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <%- include("partials/header") %>
+
+  <div class="contact-container">
+  <h2>Contact Us</h2>
+  
+  <form class="contact-form" id="contactForm">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="first-name">First name</label>
+        <input type="text" id="first-name" name="first-name" placeholder="Jane">
+      </div>
+      <div class="form-group">
+        <label for="last-name">Last name</label>
+        <input type="text" id="last-name" name="last-name" placeholder="Smitherton">
+      </div>
+    </div>
+
+    <div class="form-group full-width">
+      <label for="email">Email address</label>
+      <input type="email" id="email" name="email" placeholder="email@janesfakedomain.net">
+    </div>
+
+    <div class="form-group full-width">
+      <label for="message">Any Feedback/ Suggestions</label>
+      <textarea id="message" name="message" placeholder="Enter your question or message"></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+</div>
+
+<!-- Footer -->
+<%- include("partials/footer") %>
+
+<script src="/cartAPI.js"></script>
+<script src="/script.js"></script>
+<script>
+document.getElementById("contactForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const firstName = document.getElementById("first-name").value;
+    const lastName = document.getElementById("last-name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+
+    // Validate form
+    if (!firstName || !lastName || !email || !message) {
+        alert('Please fill in all fields');
+        return;
+    }
+
+    let formData = {
+        firstname: firstName,
+        lastname: lastName,
+        email: email,
+        feedback: message
+    };
+
+    try {
+        let res = await fetch("/api/feedback", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                ...getAuthHeader()
+            },
+            body: JSON.stringify(formData)
+        });
+
+        let data = await res.json();
+        console.log(data);
+        
+        if (data.success) {
+            alert(data.message);
+            document.getElementById("contactForm").reset();
+        } else {
+            alert(data.message || 'Error submitting feedback');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error submitting feedback. Please try again.');
+    }
+});
+</script>
+
+</body>
+</html>

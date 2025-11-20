@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "name": "Gluten Free Rice Noodles",
+    "fullName": "Gluten Free Rice Noodles - (200g)",
+    "price": 150,
+    "image": "/images/noodle.png",
+    "category": "gluten-free",
+    "badge": null,
+    "weight": "200g",
+    "stock": 5
+  },
+  {
+    "id": 2,
+    "name": "Gluten Free Multigrain Fusili",
+    "fullName": "Gluten Free Multigrain Fusili (250g)",
+    "price": 200,
+    "image": "/images/fussili.png",
+    "category": "gluten-free",
+    "badge": "Best Seller",
+    "weight": "250g",
+    "stock": 5
+  },
+  {
+    "id": 5,
+    "name": "Jamun Cubes",
+    "fullName": "Jamun Cubes",
+    "price": 250,
+    "image": "/images/jamun cubes.png",
+    "category": "nut-free",
+    "badge": "Best Seller",
+    "weight": "200g",
+    "stock": 5
+  },
+  {
+    "id": 6,
+    "name": "Vacuum Dried Strawberry",
+    "fullName": "Vacuum Dried Strawberry",
+    "price": 399,
+    "image": "/images/strawberry cubes.png",
+    "category": "nut-free",
+    "badge": null,
+    "weight": "200g",
+    "stock": 5
+  },
+  {
+    "id": 3,
+    "name": "Prodigee",
+    "fullName": "Plant-based Prodigee - 500 ml | Zero cholesterol, zero trans fat, clean label",
+    "price": 499,
+    "image": "/images/prodigee.png",
+    "category": "lactose-free",
+    "badge": null,
+    "weight": "500 ml",
+    "stock": 5
+  },
+  {
+    "id": 4,
+    "name": "Millet Milk Original",
+    "fullName": "Millet Milk Original 1 Ltr",
+    "price": 299,
+    "image": "/images/millet milk blue.png",
+    "category": "lactose-free",
+    "badge": "Best Seller",
+    "weight": "1 Ltr",
+    "stock": 5
+  },
+  {
+    "id": 9,
+    "name": "Belgian Chocolate",
+    "fullName": "Belgian Chocolate (Vegan & Sugar Free)",
+    "price": 299,
+    "image": "/images/belgian chocolate.png",
+    "category": "sugar-free",
+    "badge": null,
+    "weight": "50g",
+    "stock": 5
+  },
+  {
+    "id": 10,
+    "name": "Dark Chocolate",
+    "fullName": "Dark Chocolate (Vegan & Sugar Free)",
+    "price": 370,
+    "image": "/images/dark chocolate.png",
+    "category": "sugar-free",
+    "badge": null,
+    "weight": "100g",
+    "stock": 5
+  },
+  {
+    "id": 7,
+    "name": "Coconut Cream",
+    "fullName": "Coconut Cream",
+    "price": 499,
+    "image": "/images/coconut cream.png",
+    "category": "soy-free",
+    "badge": null,
+    "weight": "100 ml",
+    "stock": 5
+  },
+  {
+    "id": 8,
+    "name": "Brown Rice Cakes",
+    "fullName": "Brown Rice Cakes",
+    "price": 250,
+    "image": "/images/brown rice cakes.png",
+    "category": "soy-free",
+    "badge": null,
+    "weight": "250g",
+    "stock": 5
+  }
+]

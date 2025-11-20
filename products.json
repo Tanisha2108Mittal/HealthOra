@@ -1,0 +1,88 @@
+[ {
+    "id": 1,
+    "name": "Gluten Free Rice Noodles - (200g)",
+    "price": 150,
+    "image": "/images/noodle.png",
+    "link": "glutenpro1.html",
+    "category": "gluten-free"
+  },
+  {
+    "id": 2,
+    "name": "Gluten Free Multigrain Fusili (250g)",
+    "price": 200,
+    "image": "/images/fussili.png",
+    "link": "glutenpro4.html",
+    "category": "gluten-free",
+    "badge": "Best Seller"
+  },
+
+  {
+    "id": 3,
+    "name": "Plant-based Prodigee - 500 ml | Zero cholesterol, zero trans fat, clean label",
+    "price": 499,
+    "image": "/images/prodigee.png",
+    "link": "lactosepro2.html",
+    "category": "lactose-free"
+  },
+  {
+    "id": 4,
+    "name": "Millet Milk Original 1 Ltr",
+    "price": 299,
+    "image": "/images/millet milk blue.png",
+    "link": "lactosepro3.html",
+    "category": "lactose-free",
+    "badge": "Best Seller"
+  },
+
+  {
+    "id": 5,
+    "name": "Jamun Cubes",
+    "price": 250,
+    "image": "/images/jamun cubes.png",
+    "link": "nutpro1.html",
+    "category": "nut-free",
+    "badge": "Best Seller"
+  },
+  {
+    "id": 6,
+    "name": "Vacuum Dried Strawberry",
+    "price": 399,
+    "image": "/images/strawberry cubes.png",
+    "link": "nutpro2.html",
+    "category": "nut-free"
+  },
+
+  {
+    "id": 7,
+    "name": "Coconut Cream",
+    "price": 499,
+    "image": "/images/coconut cream.png",
+    "link": "soypro1.html",
+    "category": "soy-free"
+  },
+  {
+    "id": 8,
+    "name": "Brown Rice Cakes",
+    "price": 250,
+    "image": "/images/brown rice cakes.png",
+    "link": "soypro2.html",
+    "category": "soy-free"
+  },
+
+  {
+    "id": 9,
+    "name": "Belgian Chocolate (Vegan & Sugar Free)",
+    "price": 299,
+    "image": "/images/belgian chocolate.png",
+    "link": "sugarpro1.html",
+    "category": "sugar-free"
+  },
+  {
+    "id": 10,
+    "name": "Dark Chocolate (Vegan & Sugar Free)",
+    "price": 370,
+    "image": "/images/dark chocolate.png",
+    "link": "sugarpro2.html",
+    "category": "sugar-free"
+  }
+]

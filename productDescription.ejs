@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | Healthora</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        /* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f4f6f8;
+    padding: 40px 20px;
+    margin: 180px 0 0;
+}
+
+/* MAIN CONTAINER */
+#product-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;              
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+}
+
+/* LAYOUT */
+.product-page {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+/* PRODUCT IMAGE */
+.product-image img {
+    width: 330px;
+    border-radius: 12px;
+    object-fit: contain;
+}
+
+/* PRODUCT DETAILS */
+.product-details {
+    flex: 1;
+}
+
+.product-title {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.product-details h3 {
+    font-size: 20px;
+    font-weight: normal;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+/* BADGE */
+.badge {
+    background: #ff9800;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+/* PRICE */
+.price {
+    font-size: 30px;
+    color: #1a73e8;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+/* CATEGORY */
+.category {
+    margin: 12px 0;
+    font-size: 16px;
+    color: #444;
+}
+
+/* QUANTITY INPUT */
+input[type="number"] {
+    margin-top: 5px;
+    width: 80px;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+}
+
+/* BUTTONS */
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.buttons button {
+    padding: 10px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-cart-btn {
+    background: #2e7d32;
+    color: white;
+    flex: 1;
+}
+
+.add-cart-btn:hover {
+    background: #1b5e20;
+}
+
+.buy-now-btn {
+    background: #ff9800;
+    color: white;
+    flex: 1;
+}
+
+.buy-now-btn:hover {
+    background: #e68900;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .product-page {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .product-image img {
+        width: 260px;
+    }
+
+    .buttons {
+        justify-content: center;
+    }
+}
+    </style>
+</head>
+
+<body>
+<!-- Header -->
+<%- include("partials/header") %>
+
+<div id="product-container"></div>
+
+<!-- Footer -->
+<%- include("partials/footer") %>
+
+<script src="/cartAPI.js"></script>
+<script src="/productDescription.js"></script>
+
+</body>
+</html>

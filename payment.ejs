@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment - Healthora</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    .payment-container {
+      max-width: 900px;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .payment-form {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .payment-form h2 {
+      color: #2e7d32;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .payment-btn {
+      background: #2e7d32;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .payment-btn:hover {
+      background: #1b5e20;
+    }
+
+    .order-summary {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+      font-size: 18px;
+      font-weight: 700;
+      color: #2e7d32;
+    }
+
+    @media (max-width: 768px) {
+      .payment-container {
+        grid-template-columns: 1fr;
+      }
+      .order-summary {
+        position: relative;
+        top: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <%- include("partials/header") %>
+
+  <div class="payment-container">
+    <div class="payment-form">
+      <h2>Payment Information</h2>
+      
+      <form id="paymentForm" onsubmit="handlePayment(event)">
+        <div class="form-group">
+          <label for="cardName">Cardholder Name</label>
+          <input type="text" id="cardName" name="cardName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cardNumber">Card Number</label>
+          <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="expiry">Expiry Date</label>
+            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+          </div>
+          <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" placeholder="123" required>
+          </div>
+        </div>
+
+        <button type="submit" class="payment-btn">Complete Payment</button>
+      </form>
+
+      <div id="paymentMessage"></div>
+    </div>
+
+    <div class="order-summary">
+      <h3 style="margin-bottom: 20px;">Order Summary</h3>
+      <div class="summary-row">
+        <span>Subtotal:</span>
+        <span id="subtotal">Rs. 0.00</span>
+      </div>
+      <div class="summary-row">
+        <span>Tax:</span>
+        <span id="tax">Rs. 0.00</span>
+      </div>
+      <div class="summary-row">
+        <span>Shipping:</span>
+        <span id="shipping">Rs. 0.00</span>
+      </div>
+      <div class="summary-row">
+        <span>Total:</span>
+        <span id="total">Rs. 0.00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <%- include("partials/footer") %>
+
+  <script src="/cartAPI.js"></script>
+  <script src="/script.js"></script>
+  <script>
+    function displayOrderSummary() {
+      const items = cartManager.cart || [];
+      let subtotal = 0;
+
+      items.forEach(item => {
+        subtotal += (item.price || 0) * (item.qty || 1);
+      });
+
+      const tax = 0;
+      const shipping = 0;
+      const total = subtotal + tax + shipping;
+
+      document.getElementById('subtotal').textContent = `Rs. ${subtotal.toFixed(2)}`;
+      document.getElementById('tax').textContent = `Rs. ${tax.toFixed(2)}`;
+      document.getElementById('shipping').textContent = `Rs. ${shipping.toFixed(2)}`;
+      document.getElementById('total').textContent = `Rs. ${total.toFixed(2)}`;
+    }
+
+    function handlePayment(event) {
+      event.preventDefault();
+      
+      const cardName = document.getElementById('cardName').value;
+      const cardNumber = document.getElementById('cardNumber').value;
+      const expiry = document.getElementById('expiry').value;
+      const cvv = document.getElementById('cvv').value;
+      const messageDiv = document.getElementById('paymentMessage');
+
+      // Validate card details (basic validation)
+      if (cardNumber.length < 13 || cvv.length < 3) {
+        messageDiv.innerHTML = '<p style="color: #e74c3c; margin-top: 20px;">Invalid card details</p>';
+        return;
+      }
+
+      messageDiv.innerHTML = '<p style="color: #2e7d32; margin-top: 20px;">Processing payment...</p>';
+
+      // Simulate payment processing
+      setTimeout(() => {
+        messageDiv.innerHTML = '<p style="color: #2e7d32; margin-top: 20px;">Payment successful! Order placed.</p>';
+        
+        // Clear cart
+        if (typeof cartManager !== 'undefined') {
+          cartManager.clearCart();
+        }
+        
+        // Redirect to order confirmation after 2 seconds
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
+      }, 2000);
+    }
+
+    // Display summary on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(displayOrderSummary, 100);
+    });
+  </script>
+</body>
+</html>

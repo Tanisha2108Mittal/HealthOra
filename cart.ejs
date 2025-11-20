@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart - Healthora</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    .cart-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 60vh;
+      margin-top: 150px;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .cart-header h1 {
+      font-size: 32px;
+      color: #2e7d32;
+    }
+
+    .cart-main {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 20px;
+    }
+
+    .cart-items {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      align-items: flex-start;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .item-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 5px;
+      flex-shrink: 0;
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .item-category {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 8px;
+    }
+
+    .item-price {
+      color: #2e7d32;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .item-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .qty-control {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #f9f9f9;
+    }
+
+    .qty-control button {
+      background: none;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      color: #2e7d32;
+    }
+
+    .qty-control input {
+      width: 40px;
+      border: none;
+      text-align: center;
+      background: transparent;
+      outline: none;
+    }
+
+    .remove-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .remove-btn:hover {
+      background: #c0392b;
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+
+    .empty-cart i {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+
+    .order-summary {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+      font-size: 18px;
+      font-weight: 700;
+      color: #2e7d32;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .checkout-btn:hover:not(:disabled) {
+      background: #1b5e20;
+    }
+
+    .checkout-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      .cart-main {
+        grid-template-columns: 1fr;
+      }
+      .order-summary {
+        position: relative;
+        top: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <%- include("partials/header") %>
+
+  <div class="cart-container">
+    <div class="cart-header">
+      <h1>Shopping Cart</h1>
+      <span id="itemCount" style="color: #666; font-size: 14px;">0 items</span>
+    </div>
+
+    <div class="cart-main">
+      <div class="cart-items" id="cartItems">
+        <div class="empty-cart">
+          <i class="fas fa-shopping-cart"></i>
+          <h3>Your cart is empty</h3>
+          <p>Add some products to get started!</p>
+        </div>
+      </div>
+
+      <div class="order-summary">
+        <h3 style="margin-bottom: 20px;">Order Summary</h3>
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span id="subtotal">Rs. 0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Tax:</span>
+          <span id="tax">Rs. 0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping:</span>
+          <span id="shipping">Rs. 0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Total:</span>
+          <span id="total">Rs. 0.00</span>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn" onclick="handleCheckout()">Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <%- include("partials/footer") %>
+
+  <script src="/cartAPI.js"></script>
+  <script src="/script.js"></script>
+  <script>
+    // Refresh cart display every 2 seconds
+    setInterval(displayCart, 2000);
+
+    function displayCart() {
+      const cartItems = cartManager.cart;
+      const container = document.getElementById('cartItems');
+
+      if (!cartItems || cartItems.length === 0) {
+        container.innerHTML = `
+          <div class="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <h3>Your cart is empty</h3>
+            <p>Add some products to get started!</p>
+          </div>
+        `;
+        updateSummary([]);
+        return;
+      }
+
+      container.innerHTML = cartItems.map(item => `
+        <div class="cart-item">
+          <img src="${item.image || '/images/default.png'}" alt="${item.name}" class="item-image" onerror="this.src='/images/default.png'">
+          <div class="item-details">
+            <div class="item-name">${item.name}</div>
+            <div class="item-price">Rs. ${item.price}</div>
+            <div class="item-actions">
+              <div class="qty-control">
+                <button onclick="updateQty('${item.id}', ${(item.qty || 1) - 1})">-</button>
+                <input type="number" value="${item.qty || 1}" min="1" readonly>
+                <button onclick="updateQty('${item.id}', ${(item.qty || 1) + 1})">+</button>
+              </div>
+              <button class="remove-btn" onclick="removeFromCart('${item.id}')">
+                <i class="fas fa-trash"></i> Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      updateSummary(cartItems);
+    }
+
+    // Update quantity
+    async function updateQty(itemId, newQty) {
+      if (newQty <= 0) {
+        if (confirm('Remove this item from cart?')) {
+          await cartManager.removeFromCart(itemId);
+        }
+      } else {
+        await cartManager.updateItemQuantity(itemId, newQty);
+      }
+      displayCart();
+    }
+
+    // Remove from cart
+    async function removeFromCart(itemId) {
+      if (confirm('Remove this item from cart?')) {
+        await cartManager.removeFromCart(itemId);
+        displayCart();
+      }
+    }
+
+    // Update summary
+    function updateSummary(items) {
+      let subtotal = 0;
+      items.forEach(item => {
+        subtotal += (item.price || 0) * (item.qty || 1);
+      });
+
+      const tax = 0;
+      const shipping = 0;
+      const total = subtotal + tax + shipping;
+
+      document.getElementById('itemCount').textContent = `${items.length} item${items.length !== 1 ? 's' : ''}`;
+      document.getElementById('subtotal').textContent = `Rs. ${subtotal.toFixed(2)}`;
+      document.getElementById('tax').textContent = `Rs. ${tax.toFixed(2)}`;
+      document.getElementById('total').textContent = `Rs. ${total.toFixed(2)}`;
+
+      document.getElementById('checkoutBtn').disabled = items.length === 0;
+    }
+
+    // Handle checkout
+    function handleCheckout() {
+      if (cartManager.cart.length === 0) {
+        alert('Your cart is empty');
+        return;
+      }
+      window.location.href = '/address';
+    }
+
+    // Initial display
+    displayCart();
+  </script>
+</body>
+</html>

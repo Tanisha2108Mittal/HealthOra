@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign-up - Healthora</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <%- include("partials/header") %>
+
+<div class="login-container">
+  <h2>Sign Up</h2>
+  <form id="signupForm" onsubmit="handleSignup(event)">
+    <input type="text" id="signupFullname" placeholder="Full Name" required>
+    <input type="text" id="signupUsername" placeholder="Username" required>
+    <input type="email" id="signupEmail" placeholder="Email" required>
+    <input type="password" id="signupPassword" placeholder="Password" required>
+    <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required>
+    <button type="submit" class="auth-btn">Sign Up</button>
+    <div id="signupMessage"></div>
+  </form>
+  <p class="auth-footer">
+    Already have an account? <a href="/login">Login</a>
+  </p>
+</div>
+
+<!-- Footer -->
+<%- include("partials/footer") %>
+
+<script src="/cartAPI.js"></script>
+<script src="/script.js"></script>
+<script>
+async function handleSignup(event) {
+    event.preventDefault();
+    
+    const fullname = document.getElementById('signupFullname').value;
+    const email = document.getElementById('signupEmail').value;
+    const userName = document.getElementById('signupUsername').value;
+    const password = document.getElementById('signupPassword').value;
+    const confirmPassword = document.getElementById('signupConfirmPassword').value;
+    const messageDiv = document.getElementById('signupMessage');
+    
+    // Validate passwords match
+    if (password !== confirmPassword) {
+        messageDiv.innerHTML = '<p style="color: #e74c3c; margin-top: 10px;">Passwords do not match</p>';
+        return;
+    }
+    
+    if (password.length < 6) {
+        messageDiv.innerHTML = '<p style="color: #e74c3c; margin-top: 10px;">Password must be at least 6 characters</p>';
+        return;
+    }
+    
+    messageDiv.innerHTML = '<p style="color: #2e7d32; margin-top: 10px;">Creating account...</p>';
+    
+    try {
+        const result = await signup(email, password, fullname, userName);
+        
+        if (result.success) {
+            messageDiv.innerHTML = '<p style="color: #2e7d32; margin-top: 10px;">Account created successfully! Redirecting...</p>';
+            // Store JWT token if provided
+            if (result.token) {
+                localStorage.setItem('authToken', result.token);
+            }
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1500);
+        } else {
+            messageDiv.innerHTML = `<p style="color: #e74c3c; margin-top: 10px;">${result.message || 'Signup failed'}</p>`;
+        }
+    } catch (error) {
+        console.error('Signup error:', error);
+        messageDiv.innerHTML = '<p style="color: #e74c3c; margin-top: 10px;">Error during signup</p>';
+    }
+}
+</script>
+</body>
+</html>
